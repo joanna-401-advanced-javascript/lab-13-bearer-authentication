@@ -9,7 +9,8 @@
     "test-watch": "jest --watchAll",
     "test": "jest",
     "lint": "eslint '**/*.js'",
-    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
+    "startDB" : "mkdir -p ./.db && mongod --dbpath ./.db"
   },
   "jest": {
     "testEnvironment": "node"

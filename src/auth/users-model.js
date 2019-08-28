@@ -21,7 +21,7 @@ users.pre('save', function(next) {
 });
 
 users.statics.authenticateToken = function(token) {
-  let parsedToken = jwt.verify(token, process.env.SECRET);
+  let parsedToken = jwt.verify(token, process.env.SECRET || 'secret');
   let query = {_id: parsedToken.id};
   return this.findOne(query);
 };
@@ -43,7 +43,7 @@ users.methods.generateToken = function() {
     id: this._id,
     role: this.role,
   };
-  return jwt.sign(token, process.env.SECRET);
+  return jwt.sign(token, process.env.SECRET || 'secret');
 };
 
 module.exports = mongoose.model('users', users);
