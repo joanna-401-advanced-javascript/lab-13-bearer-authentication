@@ -11,6 +11,8 @@ const users = new mongoose.Schema({
   role: {type: String, default:'user', enum: ['admin','editor','user']},
 });
 
+let previousTokens = [];
+
 users.pre('save', function(next) {
   bcrypt.hash(this.password, 10)
     .then(hashedPassword => {
@@ -47,9 +49,14 @@ users.statics.authenticateBasic = function(auth) {
 };
 
 users.statics.authenticateToken = function(token) {
-  const decryptedToken = jwt.verify(token, process.env.SECRET || 'secret');
-  const query = {_id:decryptedToken.id};
-  return this.findOne(query);
+  if(previousTokens.includes(token)){
+    throw new Error('Invalid Token.');
+  } else {
+    previousTokens.push(token);
+    const decryptedToken = jwt.verify(token, process.env.SECRET || 'secret');
+    const query = {_id:decryptedToken.id};
+    return this.findOne(query);
+  }
 };
 
 users.methods.comparePassword = function(password) {
@@ -57,12 +64,31 @@ users.methods.comparePassword = function(password) {
     .then( valid => valid ? this : null);
 };
 
+// Single use?
 users.methods.generateToken = function() {
   let token = {
     id: this._id,
     role: this.role,
   };
-  return jwt.sign(token, process.env.SECRET || 'secret', {expiresIn: 30});
+  return jwt.sign(token, process.env.SECRET || 'secret');
 };
+
+// Time Sensitive
+users.methods.generateTimedToken = function() {
+  let token = {
+    id: this._id,
+    role: this.role,
+  };
+  return jwt.sign(token, process.env.SECRET || 'secret', {expiresIn: 3000});
+};
+
+// Original
+// users.methods.generateToken = function() {
+//   let token = {
+//     id: this._id,
+//     role: this.role,
+//   };
+//   return jwt.sign(token, process.env.SECRET || 'secret');
+// };
 
 module.exports = mongoose.model('users', users);
