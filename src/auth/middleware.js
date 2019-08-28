@@ -4,8 +4,6 @@ const User = require('./users-model.js');
 
 module.exports = (req, res, next) => {
   
-  // Basic am9objpqb2hubnk=
-  // Bearer Token ...
   try {
     let [authType, authString] = req.headers.authorization.split(/\s+/);
     
@@ -19,7 +17,7 @@ module.exports = (req, res, next) => {
     }
   }
   catch(e) {
-    console.log(e);
+    next(e);
   }
   
   
@@ -37,10 +35,10 @@ module.exports = (req, res, next) => {
 
   function _authBearer(authString) {
     return User.authenticateToken(authString)
-      .then( user => _authenticate(user) )
+      .then(user => _authenticate(user))
       .catch(next);
   }
-  
+
   function _authenticate(user) {
     if(user) {
       req.user = user;

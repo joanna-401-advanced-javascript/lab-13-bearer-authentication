@@ -20,10 +20,23 @@ users.pre('save', function(next) {
     .catch(console.error);
 });
 
-users.statics.authenticateToken = function(token) {
-  let parsedToken = jwt.verify(token, process.env.SECRET || 'secret');
-  let query = {_id: parsedToken.id};
-  return this.findOne(query);
+users.statics.createFromOauth = function(email) {
+
+  if(! email) { return Promise.reject('Validation Error'); }
+
+  return this.findOne( {email} )
+    .then(user => {
+      if( !user ) { throw new Error('User Not Found'); }
+      console.log('Welcome Back', user.username);
+      return user;
+    })
+    .catch( error => {
+      console.log('Creating new user');
+      let username = email;
+      let password = 'none';
+      return this.create({username, password, email});
+    });
+
 };
 
 users.statics.authenticateBasic = function(auth) {
@@ -31,6 +44,12 @@ users.statics.authenticateBasic = function(auth) {
   return this.findOne(query)
     .then( user => user && user.comparePassword(auth.password) )
     .catch(error => {throw error;});
+};
+
+users.statics.authenticateToken = function(token) {
+  const decryptedToken = jwt.verify(token, process.env.SECRET || 'secret');
+  const query = {_id:decryptedToken.id};
+  return this.findOne(query);
 };
 
 users.methods.comparePassword = function(password) {

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/lab-13-bearer-authentication.iml" filepath="$PROJECT_DIR$/.idea/lab-13-bearer-authentication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/auth-server.iml" filepath="$PROJECT_DIR$/.idea/auth-server.iml" />
     </modules>
   </component>
 </project>

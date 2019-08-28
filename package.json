@@ -8,9 +8,9 @@
     "watch": "nodemon index.js",
     "test-watch": "jest --watchAll",
     "test": "jest",
-    "lint": "eslint '**/*.js'",
+    "startDB": "mkdir -p ./.db && mongod --dbpath ./.db",
     "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
-    "startDB" : "mkdir -p ./.db && mongod --dbpath ./.db"
+    "lint": "eslint '**/*.js'"
   },
   "jest": {
     "testEnvironment": "node"
@@ -26,7 +26,7 @@
     "eslint": "^6.2.2",
     "express": "^4.16.3",
     "jest": "^24.8.0",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^5.1.4",
     "mongoose": "^5.3.13",
     "mongoose-schema-jsonschema": "^1.1.15",
