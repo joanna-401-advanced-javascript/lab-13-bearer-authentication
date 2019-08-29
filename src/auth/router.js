@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * API Server Module
+ * @module src/auth/router
+ */
 
 const express = require('express');
 const authRouter = express.Router();
@@ -19,17 +23,15 @@ authRouter.post('/signup', (req, res, next) => {
     }).catch(next);
 });
 
-// single use tokens
 authRouter.post('/signin', auth, (req, res, next) => {
-  // req.token = req.user.generateToken();
   res.cookie('auth', req.token);
   res.send(req.token);
 });
 
-// authRouter.post('/signin', auth, (req, res, next) => {
-//   res.cookie('auth', req.token);
-//   res.send(req.token);
-// });
+authRouter.post('/key', auth, (req, res, next) => {
+  let key = req.user.generateAuthKey();
+  res.send(key);
+});
 
 authRouter.get('/oauth', (req,res,next) => {
   oauth.authorize(req)
@@ -40,3 +42,4 @@ authRouter.get('/oauth', (req,res,next) => {
 });
 
 module.exports = authRouter;
+
