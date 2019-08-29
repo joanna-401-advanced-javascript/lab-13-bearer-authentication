@@ -5,7 +5,7 @@
 ### Author: Joanna Arroyo
 
 ### Links and Resources
-* [submission PR](http://xyz.com)
+* [submission PR](https://github.com/joanna-401-advanced-javascript/lab-13-bearer-authentication/pull/3)
 * [travis](http://xyz.com)
 * [back-end](http://xyz.com) (when applicable)
 * [front-end](http://xyz.com) (when applicable)

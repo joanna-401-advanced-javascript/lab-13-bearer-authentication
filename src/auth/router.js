@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * API Server Module
+ * @module src/auth/router
+ */
 
 const express = require('express');
 const authRouter = express.Router();
