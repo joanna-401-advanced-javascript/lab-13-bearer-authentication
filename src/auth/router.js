@@ -19,10 +19,17 @@ authRouter.post('/signup', (req, res, next) => {
     }).catch(next);
 });
 
+// single use tokens
 authRouter.post('/signin', auth, (req, res, next) => {
+  // req.token = req.user.generateToken();
   res.cookie('auth', req.token);
   res.send(req.token);
 });
+
+// authRouter.post('/signin', auth, (req, res, next) => {
+//   res.cookie('auth', req.token);
+//   res.send(req.token);
+// });
 
 authRouter.get('/oauth', (req,res,next) => {
   oauth.authorize(req)

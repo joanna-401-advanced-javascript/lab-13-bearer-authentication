@@ -42,7 +42,11 @@ module.exports = (req, res, next) => {
   function _authenticate(user) {
     if(user) {
       req.user = user;
-      req.token = user.generateToken();
+      if(process.env.REMEMBER === 'yes'){
+        req.token = user.generateTimedToken();
+      } else {
+        req.token = user.generateToken();
+      }
       next();
     }
     else {
