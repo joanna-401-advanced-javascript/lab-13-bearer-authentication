@@ -30,4 +30,4 @@ expressSwagger(options);
 
 // start up a specific standalone swagger server on a specific port
 // http://[domain]/api-docs
-swaggerServer.listen(process.env.SWAGGER_PORT);
+// swaggerServer.listen(process.env.SWAGGER_PORT);
