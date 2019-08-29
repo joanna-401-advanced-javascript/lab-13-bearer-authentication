@@ -49,7 +49,7 @@ users.statics.authenticateBasic = function(auth) {
 };
 
 users.statics.authenticateToken = function(token) {
-  if(process.env.REMEMBER === 'yes'){
+  if (process.env.REMEMBER === 'yes'){
     const decryptedToken = jwt.verify(token, process.env.SECRET || 'secret');
     const query = {_id:decryptedToken.id};
     return this.findOne(query);
@@ -70,7 +70,16 @@ users.methods.comparePassword = function(password) {
     .then( valid => valid ? this : null);
 };
 
-// Time Sensitive
+// Original Token
+users.methods.generateToken = function() {
+  let token = {
+    id: this._id,
+    role: this.role,
+  };
+  return jwt.sign(token, process.env.SECRET || 'secret');
+};
+
+// Time Sensitive Token
 users.methods.generateTimedToken = function() {
   let token = {
     id: this._id,
@@ -79,13 +88,9 @@ users.methods.generateTimedToken = function() {
   return jwt.sign(token, process.env.SECRET || 'secret', {expiresIn: 10});
 };
 
-// Original
-users.methods.generateToken = function() {
-  let token = {
-    id: this._id,
-    role: this.role,
-  };
-  return jwt.sign(token, process.env.SECRET || 'secret');
+// Auth Key Token
+users.methods.generateAuthKey = function() {
+  return this.generateToken();
 };
 
 module.exports = mongoose.model('users', users);
