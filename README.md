@@ -6,14 +6,12 @@
 
 ### Links and Resources
 * [submission PR](https://github.com/joanna-401-advanced-javascript/lab-13-bearer-authentication/pull/3)
-* [travis](http://xyz.com)
-* [back-end](http://xyz.com) (when applicable)
-* [front-end](http://xyz.com) (when applicable)
+* [travis](https://travis-ci.com/joanna-401-advanced-javascript/lab-13-bearer-authentication)
+* [front-end](https://lab-13-bearer.herokuapp.com/)
 
 #### Documentation
 * [api docs](http://xyz.com) (API servers)
-* [jsdoc](http://xyz.com) (Server assignments)
-* [styleguide](http://xyz.com) (React assignments)
+* [jsdoc](https://lab-13-bearer.herokuapp.com/docs) (Server assignments)
 
 ### Modules
 #### `modulename.js`

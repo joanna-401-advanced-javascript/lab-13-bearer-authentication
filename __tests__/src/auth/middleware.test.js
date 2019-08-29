@@ -2,9 +2,9 @@
 
 process.env.SECRET='test';
 
-const supergoose = require('../../supergoose.js');
-const auth = require('../../../src/auth/middleware.js');
-const Users = require('../../../src/auth/users-model.js');
+const supergoose = require('../../supergoose');
+const auth = require('../../../src/auth/middleware');
+const Users = require('../../../src/auth/users-model');
 
 let users = {
   admin: {username: 'admin', password: 'password', role: 'admin'},
@@ -38,9 +38,9 @@ describe('Auth Middleware', () => {
       };
       let res = {};
       let next = jest.fn();
-      let middleware = auth;
+      // let middleware = auth;
 
-      return middleware(req, res, next)
+      return auth(req, res, next)
         .then(() => {
           expect(next).toHaveBeenCalledWith(errorObject);
         });
@@ -55,9 +55,9 @@ describe('Auth Middleware', () => {
       };
       let res = {};
       let next = jest.fn();
-      let middleware = auth;
+      // let middleware = auth;
 
-      return middleware(req,res,next)
+      return auth(req,res,next)
         .then( () => {
           cachedToken = req.token;
           expect(next).toHaveBeenCalledWith();
@@ -73,9 +73,9 @@ describe('Auth Middleware', () => {
       };
       let res = {};
       let next = jest.fn();
-      let middleware = auth;
+      // let middleware = auth;
 
-      return middleware(req,res,next)
+      return auth(req,res,next)
         .then( () => {
           cachedToken = req.token;
           expect(next).toHaveBeenCalledWith();
